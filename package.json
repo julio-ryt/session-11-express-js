@@ -1,0 +1,31 @@
+{
+  "name": "session-11-express",
+  "version": "1.0.0",
+  "description": "Training Session 11 (Express.js & API Development)",
+  "scripts": {
+    "dev": "nodemon"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/julio-ryt/session-11-express-js.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/julio-ryt/session-11-express-js/issues"
+  },
+  "homepage": "https://github.com/julio-ryt/session-11-express-js#readme",
+  "devDependencies": {
+    "@types/dotenv": "^6.1.1",
+    "@types/express": "^5.0.1",
+    "@types/node": "^22.13.13",
+    "eslint": "^9.23.0",
+    "nodemon": "^3.1.9",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.8.2"
+  },
+  "dependencies": {
+    "express": "^4.21.2"
+  }
+}
