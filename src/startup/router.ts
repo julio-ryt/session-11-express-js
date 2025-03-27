@@ -18,6 +18,16 @@ export const routerSetup = (app: Express) =>
       } else {
         readFile(TASK_FILE, (err, data) => saveTask(err, data, task, res));
       }
+    })
+    .delete("/:id", async (req: Request, res: Response) => {
+      const taskId = req.params.id;
+      if (typeof taskId === "string") {
+        console.log(taskId);
+        console.log("go delete");
+      } else {
+        res.status(404);
+        res.send("You need to provide a task ID!");
+      }
     });
 export default routerSetup;
 
@@ -44,19 +54,23 @@ const saveTask = (
   }
 
   const tasks = readData.toString("utf8");
-  const merged =
-    tasks && typeof tasks === "string"
-      ? (JSON.parse(tasks) as TTask[]).concat(data)
-      : [{ ...data }];
-  console.log("tasks", merged);
-  writeFile(TASK_FILE, JSON.stringify(merged), "utf8", (err) => {
-    if (err) {
-      console.error("Error writing to file", err);
-    } else {
-      res.status(201);
-      res.send("Task Saved");
-    }
-  });
+  const tasksDB: TTask[] =
+    tasks && typeof tasks === "string" ? JSON.parse(tasks) : [];
+  const merged = tasksDB.length > 0 ? tasksDB.concat(data) : [{ ...data }];
+
+  if (tasksDB.findIndex((task) => task.id === data.id) >= 0) {
+    res.status(203);
+    res.send("There is a task with that id");
+  } else {
+    writeFile(TASK_FILE, JSON.stringify(merged), "utf8", (err) => {
+      if (err) {
+        console.error("Error writing to file", err);
+      } else {
+        res.status(201);
+        res.send("Task Saved");
+      }
+    });
+  }
 };
 
 const getAllTasks = (res: Response) => {
