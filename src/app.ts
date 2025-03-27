@@ -1,6 +1,6 @@
 import express from "express";
 import appSetup from "./startup/init";
-import routerSetup from "./startup/router";
+import { routerSetup } from "./startup/router";
 
 const app = express();
 
